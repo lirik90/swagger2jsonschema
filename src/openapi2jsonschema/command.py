@@ -116,7 +116,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                                 )
             if strict:
                 definitions = additional_properties(definitions)
-            definitions_file.write(json.dumps({"definitions": definitions}, indent=2))
+            print(json.dumps({"definitions": definitions}, indent=2), file=definitions_file)
 
     types = []
 
@@ -204,7 +204,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
 
             with open("%s/%s.json" % (output, full_name), "w") as schema_file:
                 debug("Generating %s.json" % full_name)
-                schema_file.write(json.dumps(specification, indent=2))
+                print(json.dumps(specification, indent=2), file=schema_file)
         except Exception as e:
             error("An error occured processing %s: %s" % (kind, e))
 
@@ -220,7 +220,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 contents["oneOf"].append(
                     {"$ref": (title.replace("#/components/schemas/", "") + ".json")}
                 )
-        all_file.write(json.dumps(contents, indent=2))
+        print(json.dumps(contents, indent=2), file=all_file)
 
 
 if __name__ == "__main__":
