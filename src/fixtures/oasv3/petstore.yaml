@@ -20,6 +20,7 @@ paths:
           required: false
           schema:
             type: integer
+            maximum: 100
             format: int32
       responses:
         '200':
@@ -44,6 +45,12 @@ paths:
       operationId: createPets
       tags:
         - pets
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Pet'
+        required: true
       responses:
         '201':
           description: Null response
@@ -72,7 +79,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Pets"
+                $ref: "#/components/schemas/Pet"
         default:
           description: unexpected error
           content:
@@ -82,6 +89,7 @@ paths:
 components:
   schemas:
     Pet:
+      type: object
       required:
         - id
         - name
@@ -95,9 +103,11 @@ components:
           type: string
     Pets:
       type: array
+      maxItems: 100
       items:
         $ref: "#/components/schemas/Pet"
     Error:
+      type: object
       required:
         - code
         - message

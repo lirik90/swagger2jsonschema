@@ -1,0 +1,36 @@
+black==24.1.1
+    # via -r requirements-dev.in
+click==8.1.7
+    # via
+    #   -r requirements.txt
+    #   black
+iniconfig==2.0.0
+    # via pytest
+jsonref==1.1.0
+    # via -r requirements.txt
+mypy==1.8.0
+    # via -r requirements-dev.in
+mypy-extensions==1.0.0
+    # via
+    #   black
+    #   mypy
+packaging==23.2
+    # via
+    #   black
+    #   pytest
+pathspec==0.12.1
+    # via black
+platformdirs==4.2.0
+    # via black
+pluggy==1.4.0
+    # via pytest
+pytest==8.0.0
+    # via
+    #   -r requirements-dev.in
+    #   pytest-datafiles
+pytest-datafiles==3.0.0
+    # via -r requirements-dev.in
+pyyaml==6.0.1
+    # via -r requirements.txt
+typing-extensions==4.9.0
+    # via mypy

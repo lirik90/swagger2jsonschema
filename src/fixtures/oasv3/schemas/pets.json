@@ -1,0 +1,8 @@
+{
+  "type": "array",
+  "maxItems": 100,
+  "items": {
+    "$ref": "Pet.json"
+  },
+  "$schema": "http://json-schema.org/schema#"
+}

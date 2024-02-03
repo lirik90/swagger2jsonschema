@@ -3,7 +3,6 @@
 A utility to extract [JSON Schema](http://json-schema.org/) from a
 valid [OpenAPI](https://www.openapis.org/) specification.
 
-
 ## Why
 
 OpenAPI contains a list of type `definitions` using a superset of JSON
@@ -12,20 +11,6 @@ found myself however wanting to use those schemas separately, outside
 existing OpenAPI tooling. Generating separate schemas for types defined
 in OpenAPI allows for all sorts of indepent tooling to be build which
 can be easily maintained, because the canonical definition is shared.
-
-
-## Installation
-
-`openapi2jsonschema` is implemented in Python. Assuming you have a
-Python intepreter and pip installed you should be able to install with:
-
-```
-pip install openapi2jsonschema
-```
-
-This has not yet been widely tested and is currently in a _works on my
-machine_ state.
-
 
 ## Usage
 
@@ -55,15 +40,3 @@ Options:
                      (additionalProperties: false)
   --help             Show this message and exit.
 ```
-
-
-## Example
-
-My specific usecase was being able to validate a Kubernetes
-configuration file without a Kubernetes client like `kubectl` and
-without the server. For that I have a bash script,
-[available here](https://github.com/instrumenta/kubernetes-json-schema/blob/master/build.sh).
-
-The output from running this script can be seen in the accompanying
-[instrumenta/kubernetes-json-schema](https://github.com/instrumenta/kubernetes-json-schema).
-
