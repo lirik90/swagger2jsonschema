@@ -76,6 +76,10 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         version = data["swagger"]
     elif "openapi" in data:
         version = data["openapi"]
+    else:
+        raise ValueError(
+            "Cannot convert data to JSON because we could not find 'openapi' or 'swagger' keys"
+        )
 
     if not os.path.exists(output):
         os.makedirs(output)
