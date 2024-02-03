@@ -63,9 +63,11 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         response = urllib.request.urlopen(req)
 
     info("Parsing schema")
-    # Note that JSON is valid YAML, so we can use the YAML parser whether
-    # the schema is stored in JSON or YAML
-    data = yaml.load(response.read(), Loader=yaml.SafeLoader)
+    body = response.read()
+    try:
+        data = json.loads(body)
+    except ValueError as e:
+        data = yaml.load(body, Loader=yaml.SafeLoader)
 
     if "swagger" in data:
         version = data["swagger"]

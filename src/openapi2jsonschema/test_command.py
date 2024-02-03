@@ -18,6 +18,7 @@ def test_help():
 
 @pytest.mark.datafiles(
     f"{FIXTURE_DIR}/oasv3/petstore.yaml",
+    f"{FIXTURE_DIR}/oasv3/petstore.json",
 )
 def test_command_oasv3(datafiles):
     runner = CliRunner()
