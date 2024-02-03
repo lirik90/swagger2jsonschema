@@ -6,7 +6,7 @@ import urllib
 import os
 import sys
 
-from jsonref import JsonRef  # type: ignore
+import jsonref
 import click
 
 from openapi2jsonschema.log import info, debug, error
@@ -181,8 +181,8 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             specification = updated
 
             if stand_alone:
-                base = "file://%s/%s/" % (os.getcwd(), output)
-                specification = JsonRef.replace_refs(specification, base_uri=base)
+                base = "file://%s/" % os.path.abspath(output)
+                specification = jsonref.replace_refs(specification, base_uri=base)
 
             if "additionalProperties" in specification:
                 if specification["additionalProperties"]:

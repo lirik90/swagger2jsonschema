@@ -79,3 +79,7 @@ def test_command_kubernetes(datafiles):
             f"{FIXTURE_DIR}/kubernetes/schemas/all.json",
             f"{output_dir}/all.json",
         )
+        assert filecmp.cmp(
+            f"{FIXTURE_DIR}/kubernetes/schemas/pod-v1.json",
+            f"{output_dir}/pod-v1.json",
+        )
