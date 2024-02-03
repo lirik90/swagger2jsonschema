@@ -88,7 +88,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 definitions["io.k8s.apimachinery.pkg.util.intstr.IntOrString"] = {
                     "oneOf": [{"type": "string"}, {"type": "integer"}]
                 }
-                # Although the kubernetes api does not allow `number`  as valid
+                # Although the kubernetes api does not allow `number` as valid
                 # Quantity type - almost all kubenetes tooling
                 # recognizes it is valid. For this reason, we extend the API definition to
                 # allow `number` values.
@@ -96,27 +96,42 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                     "oneOf": [{"type": "string"}, {"type": "number"}]
                 }
 
-                # For Kubernetes, populate `apiVersion` and `kind` properties from `x-kubernetes-group-version-kind`
                 for type_name in definitions:
                     type_def = definitions[type_name]
-                    if "x-kubernetes-group-version-kind" in type_def:
-                        for kube_ext in type_def["x-kubernetes-group-version-kind"]:
-                            if expanded and "apiVersion" in type_def["properties"]:
-                                api_version = (
-                                    kube_ext["group"] + "/" + kube_ext["version"]
-                                    if kube_ext["group"]
-                                    else kube_ext["version"]
-                                )
-                                append_no_duplicates(
-                                    type_def["properties"]["apiVersion"],
-                                    "enum",
-                                    api_version,
-                                )
-                            if "kind" in type_def["properties"]:
-                                kind = kube_ext["kind"]
-                                append_no_duplicates(
-                                    type_def["properties"]["kind"], "enum", kind
-                                )
+                    # For Kubernetes, populate `apiVersion` and `kind` properties from `x-kubernetes-group-version-kind`
+                    has_group_version_kind = (
+                        "x-kubernetes-group-version-kind" in type_def
+                    )
+                    for prop_name in type_def.get("properties", []):
+                        if prop_name == "apiVersion":
+                            if has_group_version_kind and expanded:
+                                for kube_ext in type_def[
+                                    "x-kubernetes-group-version-kind"
+                                ]:
+                                    api_version = (
+                                        kube_ext["group"] + "/" + kube_ext["version"]
+                                        if kube_ext["group"]
+                                        else kube_ext["version"]
+                                    )
+                                    append_no_duplicates(
+                                        type_def["properties"]["apiVersion"],
+                                        "enum",
+                                        api_version,
+                                    )
+                        if prop_name == "kind":
+                            if has_group_version_kind:
+                                for kube_ext in type_def[
+                                    "x-kubernetes-group-version-kind"
+                                ]:
+                                    kind = kube_ext["kind"]
+                                    append_no_duplicates(
+                                        type_def["properties"]["kind"], "enum", kind
+                                    )
+                        # Enum values in properties should be unique
+                        if "enum" in type_def["properties"][prop_name]:
+                            type_def["properties"][prop_name]["enum"] = list(
+                                dict.fromkeys(type_def["properties"][prop_name]["enum"])
+                            )
             if strict:
                 definitions = additional_properties(definitions)
             print(
