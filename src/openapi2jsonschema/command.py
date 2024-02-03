@@ -135,7 +135,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             group = title.split(".")[-3].lower()
             api_version = title.split(".")[-2].lower()
         specification = components[title]
-        specification["$schema"] = "http://json-schema.org/schema#"
+        specification["$schema"] = "http://json-schema.org/draft-07/schema#"
         specification.setdefault("type", "object")
 
         if strict:
