@@ -7,6 +7,7 @@ import urllib
 
 import click
 import jsonref  # type: ignore
+import jsonschema  # type: ignore
 import yaml
 
 from openapi2jsonschema.errors import UnsupportedError
@@ -50,6 +51,8 @@ from openapi2jsonschema.util import (
 )
 @click.argument("schema", metavar="SCHEMA_URL")
 def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
+    json_validator = jsonschema.Draft7Validator
+
     """
     Converts a valid OpenAPI specification into a set of JSON Schema files
     """
@@ -134,8 +137,9 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         if kubernetes:
             group = title.split(".")[-3].lower()
             api_version = title.split(".")[-2].lower()
+
         specification = components[title]
-        specification["$schema"] = "http://json-schema.org/draft-07/schema#"
+        specification["$schema"] = json_validator.META_SCHEMA["$schema"]
         specification.setdefault("type", "object")
 
         if strict:
@@ -204,6 +208,8 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 updated = replace_int_or_string(specification["properties"])
                 updated = allow_null_optional_fields(updated)
                 specification["properties"] = updated
+
+            json_validator.check_schema(specification)
 
             with open("%s/%s.json" % (output, full_name), "w") as schema_file:
                 debug("Generating %s.json" % full_name)
