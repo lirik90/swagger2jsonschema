@@ -116,7 +116,10 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                                 )
             if strict:
                 definitions = additional_properties(definitions)
-            print(json.dumps({"definitions": definitions}, indent=2), file=definitions_file)
+            print(
+                json.dumps({"definitions": definitions}, indent=2),
+                file=definitions_file,
+            )
 
     types = []
 
