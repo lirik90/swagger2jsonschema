@@ -6,6 +6,8 @@ click==8.1.7
     #   black
 iniconfig==2.0.0
     # via pytest
+isort==5.13.2
+    # via -r requirements-dev.in
 jsonref==1.1.0
     # via -r requirements.txt
 mypy==1.8.0

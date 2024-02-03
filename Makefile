@@ -17,6 +17,7 @@ venv:
 
 .PHONY: format
 format: deps venv
+	@$(PYTHON_ENV) -m isort ./src/
 	@$(PYTHON_ENV) -m black ./src/
 
 .PHONY: lint

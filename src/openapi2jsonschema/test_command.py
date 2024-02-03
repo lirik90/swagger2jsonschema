@@ -1,6 +1,7 @@
-import os
-import pytest  # type: ignore
 import filecmp
+import os
+
+import pytest  # type: ignore
 from click.testing import CliRunner
 
 from openapi2jsonschema.command import default

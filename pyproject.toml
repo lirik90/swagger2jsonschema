@@ -19,3 +19,6 @@ openapi2jsonschema = "openapi2jsonschema.command:default"
 quiet = true
 header = false
 generate-hashes = false
+
+[tool.isort]
+profile = "black"
