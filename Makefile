@@ -23,6 +23,7 @@ format: deps venv
 .PHONY: lint
 lint: deps venv
 	@$(PYTHON_ENV) -m black --check --diff ./src/
+	@$(PYTHON_ENV) -m mypy ./src/
 
 .PHONY: test
 test: deps venv

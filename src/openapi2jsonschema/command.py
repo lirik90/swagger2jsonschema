@@ -6,7 +6,7 @@ import sys
 import urllib
 
 import click
-import jsonref
+import jsonref  # type: ignore
 import yaml
 
 from openapi2jsonschema.errors import UnsupportedError
