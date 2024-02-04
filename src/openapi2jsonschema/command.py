@@ -10,6 +10,7 @@ import jsonref  # type: ignore
 import jsonschema  # type: ignore
 import yaml
 
+from .definitions import kubernetes_definitions
 from .errors import UnsupportedError
 from .log import debug, error, info
 from .util import (
@@ -91,24 +92,18 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             info("Generating shared definitions")
             definitions = data["definitions"]
             if kubernetes:
-                definitions["io.k8s.apimachinery.pkg.util.intstr.IntOrString"] = {
-                    "oneOf": [{"type": "string"}, {"type": "integer"}]
-                }
-                # Although the kubernetes api does not allow `number` as valid
-                # Quantity type - almost all kubenetes tooling
-                # recognizes it is valid. For this reason, we extend the API definition to
-                # allow `number` values.
-                definitions["io.k8s.apimachinery.pkg.api.resource.Quantity"] = {
-                    "oneOf": [{"type": "string"}, {"type": "number"}]
-                }
-
+                # Add Kubernetes specific definitions
+                definitions.update(kubernetes_definitions)
                 for type_name in definitions:
                     type_def = definitions[type_name]
+                    # Skip non-object types
+                    if not isinstance(type_def.get("properties"), dict):
+                        continue
                     # For Kubernetes, populate `apiVersion` and `kind` properties from `x-kubernetes-group-version-kind`
                     has_group_version_kind = (
                         "x-kubernetes-group-version-kind" in type_def
                     )
-                    for prop_name in type_def.get("properties", []):
+                    for prop_name in type_def["properties"]:
                         if prop_name == "apiVersion":
                             if has_group_version_kind and expanded:
                                 for kube_ext in type_def[
@@ -131,7 +126,9 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                                 ]:
                                     kind = kube_ext["kind"]
                                     append_no_duplicates(
-                                        type_def["properties"]["kind"], "enum", kind
+                                        type_def["properties"]["kind"],
+                                        "enum",
+                                        kind,
                                     )
                         # Enum values in properties should be unique
                         if "enum" in type_def["properties"][prop_name]:
@@ -190,26 +187,6 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                         "%s not currently supported, due to use of pkg namespace"
                         % title
                     )
-
-            # This list of Kubernetes types carry around jsonschema for Kubernetes and don't
-            # currently work with openapi2jsonschema
-            if (
-                kubernetes
-                and stand_alone
-                and kind
-                in [
-                    "jsonschemaprops",
-                    "jsonschemapropsorarray",
-                    "customresourcevalidation",
-                    "customresourcedefinition",
-                    "customresourcedefinitionspec",
-                    "customresourcedefinitionlist",
-                    "customresourcedefinitionspec",
-                    "jsonschemapropsorstringarray",
-                    "jsonschemapropsorbool",
-                ]
-            ):
-                raise UnsupportedError("%s not currently supported" % kind)
 
             updated = change_dict_values(specification, prefix, version)
             specification = updated
