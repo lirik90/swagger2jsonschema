@@ -34,7 +34,7 @@ build: deps venv
 	@$(PYTHON_ENV) -m build --wheel
 
 .PHONY: deps
-deps: lock venv
+deps: venv
 	@$(PYTHON_ENV) -m pip install --requirement ./requirements-dev.txt
 
 .PHONY: lock
