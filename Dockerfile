@@ -6,13 +6,9 @@ FROM docker.io/python:3.12-slim-bookworm AS base
 
 ARG USER=oasch
 ARG UID=49374
-ARG HOME=/${USER}
 
-RUN useradd -u "${UID:?}" -g 0 -md "${HOME:?}" "${USER:?}" \
-	&& chmod -R g=u "${HOME:?}"
-
-ENV PATH=${HOME}/.local/bin:${PATH}
-WORKDIR ${HOME}
+RUN useradd -u "${UID:?}" -g 0 -m "${USER:?}" \
+	&& mkdir -m 777 /schemas/
 
 ##################################################
 ## "build" stage
@@ -22,17 +18,17 @@ FROM base AS build
 
 RUN apt-get update && apt-get install -y make
 
-USER ${UID}:0
+COPY --chown=0:0 ./Makefile /work/
+RUN --mount=type=cache,uid=0,gid=0,dst=/root/.cache/ \
+	make -C /work/ venv
 
-RUN --mount=type=cache,uid=${UID},gid=0,dst=${HOME}/.cache/ \
-	python -m venv --upgrade-deps ./.venv/
+COPY --chown=0:0 ./requirements*.txt /work/
+RUN --mount=type=cache,uid=0,gid=0,dst=/root/.cache/ \
+	make -C /work/ deps
 
-COPY --chown=${UID}:0 ./requirements*.txt ./
-RUN --mount=type=cache,uid=${UID},gid=0,dst=${HOME}/.cache/ \
-	./.venv/bin/python -m pip install -r ./requirements-dev.txt
-
-COPY --chown=${UID}:0 ./ ./
-RUN make all
+COPY --chown=0:0 ./ /work/
+RUN --mount=type=cache,uid=0,gid=0,dst=/root/.cache/ \
+	make -C /work/ all
 
 ##################################################
 ## "main" stage
@@ -40,13 +36,11 @@ RUN make all
 
 FROM base AS main
 
+RUN --mount=type=bind,from=build,src=/work/dist/,dst=/work/dist/ \
+	--mount=type=cache,uid=0,gid=0,dst=/root/.cache/ \
+	python -m pip install /work/dist/*.whl
+
 USER ${UID}:0
 
-RUN --mount=type=bind,from=build,src=${HOME}/dist/,dst=/wheelhouse/ \
-	--mount=type=cache,uid=${UID},gid=0,dst=${HOME}/.cache/ \
-	python -m pip install /wheelhouse/*.whl \
-	&& mkdir "${HOME:?}"/schemas/ \
-	&& chmod -R g=u "${HOME:?}"
-
-ENTRYPOINT ["./.local/bin/openapi2jsonschema"]
+ENTRYPOINT ["/usr/local/bin/openapi2jsonschema"]
 CMD ["--help"]
