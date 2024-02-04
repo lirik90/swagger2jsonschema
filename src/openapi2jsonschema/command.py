@@ -10,9 +10,9 @@ import jsonref  # type: ignore
 import jsonschema  # type: ignore
 import yaml
 
-from openapi2jsonschema.errors import UnsupportedError
-from openapi2jsonschema.log import debug, error, info
-from openapi2jsonschema.util import (
+from .errors import UnsupportedError
+from .log import debug, error, info
+from .util import (
     additional_properties,
     allow_null_optional_fields,
     append_no_duplicates,
