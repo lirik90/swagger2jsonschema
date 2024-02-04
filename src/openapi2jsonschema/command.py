@@ -61,7 +61,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         response = urllib.urlopen(schema)
     else:
         if os.path.isfile(schema):
-            schema = "file://" + os.path.realpath(schema)
+            schema = "file:///" + os.path.realpath(schema)
         req = urllib.request.Request(schema)
         response = urllib.request.urlopen(req)
 
@@ -85,7 +85,9 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         os.makedirs(output)
 
     if version < "3":
-        with open("%s/_definitions.json" % output, "w") as definitions_file:
+        with open(
+            "%s/_definitions.json" % output, "w", newline="\n"
+        ) as definitions_file:
             info("Generating shared definitions")
             definitions = data["definitions"]
             if kubernetes:
@@ -213,7 +215,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             specification = updated
 
             if stand_alone:
-                base = "file://%s/" % os.path.abspath(output)
+                base = "file:///%s/" % os.path.realpath(output)
                 specification = jsonref.replace_refs(specification, base_uri=base)
 
             if "additionalProperties" in specification:
@@ -234,13 +236,15 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
 
             json_validator.check_schema(specification)
 
-            with open("%s/%s.json" % (output, full_name), "w") as schema_file:
+            with open(
+                "%s/%s.json" % (output, full_name), "w", newline="\n"
+            ) as schema_file:
                 debug("Generating %s.json" % full_name)
                 print(json.dumps(specification, indent=2), file=schema_file)
         except Exception as e:
             error("An error occured processing %s: %s" % (kind, e))
 
-    with open("%s/all.json" % output, "w") as all_file:
+    with open("%s/all.json" % output, "w", newline="\n") as all_file:
         info("Generating schema for all types")
         contents = {"oneOf": []}
         for title in types:

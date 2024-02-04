@@ -5,6 +5,9 @@ SHELL := /bin/sh
 
 PYTHON_SYS ?= python
 PYTHON_ENV ?= ./.venv/bin/python
+ifeq ($(OS),Windows_NT)
+	PYTHON_ENV = ./.venv/Scripts/python
+endif
 DOCKER ?= docker
 
 .PHONY: all
