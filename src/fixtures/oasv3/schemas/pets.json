@@ -1,8 +1,8 @@
 {
-  "type": "array",
-  "maxItems": 100,
+  "$schema": "http://json-schema.org/draft-07/schema#",
   "items": {
     "$ref": "Pet.json"
   },
-  "$schema": "http://json-schema.org/draft-07/schema#"
+  "maxItems": 100,
+  "type": "array"
 }

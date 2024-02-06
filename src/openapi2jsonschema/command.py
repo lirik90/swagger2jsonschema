@@ -52,6 +52,15 @@ from .util import (
 )
 @click.argument("schema", metavar="SCHEMA_URL")
 def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
+    json_encoder = json.JSONEncoder(
+        skipkeys=False,
+        ensure_ascii=True,
+        check_circular=True,
+        allow_nan=False,
+        sort_keys=True,
+        indent=2,
+    )
+
     json_validator = jsonschema.Draft7Validator
 
     """
@@ -138,7 +147,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             if strict:
                 definitions = additional_properties(definitions)
             print(
-                json.dumps({"definitions": definitions}, indent=2),
+                json_encoder.encode({"definitions": definitions}),
                 file=definitions_file,
             )
 
@@ -217,7 +226,10 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 "%s/%s.json" % (output, full_name), "w", newline="\n"
             ) as schema_file:
                 debug("Generating %s.json" % full_name)
-                print(json.dumps(specification, indent=2), file=schema_file)
+                print(
+                    json_encoder.encode(specification),
+                    file=schema_file,
+                )
         except Exception as e:
             error("An error occured processing %s: %s" % (kind, e))
 
@@ -233,7 +245,10 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 contents["oneOf"].append(
                     {"$ref": (title.replace("#/components/schemas/", "") + ".json")}
                 )
-        print(json.dumps(contents, indent=2), file=all_file)
+        print(
+            json_encoder.encode(contents),
+            file=all_file,
+        )
 
 
 if __name__ == "__main__":

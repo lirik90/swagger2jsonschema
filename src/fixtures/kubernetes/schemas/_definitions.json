@@ -1,6 +1,7 @@
 {
   "definitions": {
     "io.k8s.api.core.v1.Affinity": {
+      "additionalProperties": false,
       "description": "Affinity is a group of affinity scheduling rules.",
       "properties": {
         "nodeAffinity": {
@@ -16,10 +17,10 @@
           "description": "Describes pod anti-affinity scheduling rules (e.g. avoid putting this pod in the same node, zone, etc. as some other pod(s))."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.CSIVolumeSource": {
+      "additionalProperties": false,
       "description": "Represents a source location of a volume to mount, managed by an external CSI driver",
       "properties": {
         "driver": {
@@ -49,10 +50,10 @@
       "required": [
         "driver"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Capabilities": {
+      "additionalProperties": false,
       "description": "Adds and removes POSIX capabilities from running containers.",
       "properties": {
         "add": {
@@ -72,10 +73,10 @@
           "x-kubernetes-list-type": "atomic"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ClaimSource": {
+      "additionalProperties": false,
       "description": "ClaimSource describes a reference to a ResourceClaim.\n\nExactly one of these fields should be set.  Consumers of this type must treat an empty object as if it has an unknown value.",
       "properties": {
         "resourceClaimName": {
@@ -87,10 +88,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ConfigMapEnvSource": {
+      "additionalProperties": false,
       "description": "ConfigMapEnvSource selects a ConfigMap to populate the environment variables with.\n\nThe contents of the target ConfigMap's Data field will represent the key-value pairs as environment variables.",
       "properties": {
         "name": {
@@ -102,10 +103,10 @@
           "type": "boolean"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ConfigMapKeySelector": {
+      "additionalProperties": false,
       "description": "Selects a key from a ConfigMap.",
       "properties": {
         "key": {
@@ -125,10 +126,10 @@
         "key"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.ConfigMapVolumeSource": {
+      "additionalProperties": false,
       "description": "Adapts a ConfigMap into a volume.\n\nThe contents of the target ConfigMap's Data field will be presented in a volume as files using the keys in the Data field as the file names, unless the items element is populated with specific mappings of keys to paths. ConfigMap volumes support ownership management and SELinux relabeling.",
       "properties": {
         "defaultMode": {
@@ -153,10 +154,10 @@
           "type": "boolean"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Container": {
+      "additionalProperties": false,
       "description": "A single application container that you want to run within a pod.",
       "properties": {
         "args": {
@@ -312,10 +313,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerPort": {
+      "additionalProperties": false,
       "description": "ContainerPort represents a network port in a single container.",
       "properties": {
         "containerPort": {
@@ -344,10 +345,10 @@
       "required": [
         "containerPort"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerResizePolicy": {
+      "additionalProperties": false,
       "description": "ContainerResizePolicy represents resource resize policy for the container.",
       "properties": {
         "resourceName": {
@@ -363,10 +364,10 @@
         "resourceName",
         "restartPolicy"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerState": {
+      "additionalProperties": false,
       "description": "ContainerState holds a possible state of container. Only one of its members may be specified. If none of them is specified, the default one is ContainerStateWaiting.",
       "properties": {
         "running": {
@@ -382,10 +383,10 @@
           "description": "Details about a waiting container"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerStateRunning": {
+      "additionalProperties": false,
       "description": "ContainerStateRunning is a running state of a container.",
       "properties": {
         "startedAt": {
@@ -393,10 +394,10 @@
           "description": "Time at which the container was last (re-)started"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerStateTerminated": {
+      "additionalProperties": false,
       "description": "ContainerStateTerminated is a terminated state of a container.",
       "properties": {
         "containerID": {
@@ -433,10 +434,10 @@
       "required": [
         "exitCode"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerStateWaiting": {
+      "additionalProperties": false,
       "description": "ContainerStateWaiting is a waiting state of a container.",
       "properties": {
         "message": {
@@ -448,10 +449,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ContainerStatus": {
+      "additionalProperties": false,
       "description": "ContainerStatus contains details for the current status of this container.",
       "properties": {
         "allocatedResources": {
@@ -510,10 +511,10 @@
         "image",
         "imageID"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EmptyDirVolumeSource": {
+      "additionalProperties": false,
       "description": "Represents an empty directory for a pod. Empty directory volumes support ownership management and SELinux relabeling.",
       "properties": {
         "medium": {
@@ -525,10 +526,10 @@
           "description": "sizeLimit is the total amount of local storage required for this EmptyDir volume. The size limit is also applicable for memory medium. The maximum usage on memory medium EmptyDir would be the minimum value between the SizeLimit specified here and the sum of memory limits of all containers in a pod. The default is nil which means that the limit is undefined. More info: https://kubernetes.io/docs/concepts/storage/volumes#emptydir"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EnvFromSource": {
+      "additionalProperties": false,
       "description": "EnvFromSource represents the source of a set of ConfigMaps",
       "properties": {
         "configMapRef": {
@@ -544,10 +545,10 @@
           "description": "The Secret to select from"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EnvVar": {
+      "additionalProperties": false,
       "description": "EnvVar represents an environment variable present in a Container.",
       "properties": {
         "name": {
@@ -566,10 +567,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EnvVarSource": {
+      "additionalProperties": false,
       "description": "EnvVarSource represents a source for the value of an EnvVar.",
       "properties": {
         "configMapKeyRef": {
@@ -589,10 +590,10 @@
           "description": "Selects a key of a secret in the pod's namespace"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EphemeralContainer": {
+      "additionalProperties": false,
       "description": "An EphemeralContainer is a temporary container that you may add to an existing Pod for user-initiated activities such as debugging. Ephemeral containers have no resource or scheduling guarantees, and they will not be restarted when they exit or when a Pod is removed or restarted. The kubelet may evict a Pod if an ephemeral container causes the Pod to exceed its resource allocation.\n\nTo add an ephemeral container, use the ephemeralcontainers subresource of an existing Pod. Ephemeral containers may not be removed or restarted.",
       "properties": {
         "args": {
@@ -752,10 +753,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.EphemeralVolumeSource": {
+      "additionalProperties": false,
       "description": "Represents an ephemeral volume that is handled by a normal storage driver.",
       "properties": {
         "volumeClaimTemplate": {
@@ -763,10 +764,10 @@
           "description": "Will be used to create a stand-alone PVC to provision the volume. The pod in which this EphemeralVolumeSource is embedded will be the owner of the PVC, i.e. the PVC will be deleted together with the pod.  The name of the PVC will be `<pod name>-<volume name>` where `<volume name>` is the name from the `PodSpec.Volumes` array entry. Pod validation will reject the pod if the concatenated name is not valid for a PVC (for example, too long).\n\nAn existing PVC with that name that is not owned by the pod will *not* be used for the pod to avoid using an unrelated volume by mistake. Starting the pod is then blocked until the unrelated PVC is removed. If such a pre-created PVC is meant to be used by the pod, the PVC has to updated with an owner reference to the pod once the pod exists. Normally this should not be necessary, but it may be useful when manually reconstructing a broken cluster.\n\nThis field is read-only and no changes will be made by Kubernetes to the PVC after it has been created.\n\nRequired, must not be nil."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ExecAction": {
+      "additionalProperties": false,
       "description": "ExecAction describes a \"run in container\" action.",
       "properties": {
         "command": {
@@ -778,10 +779,10 @@
           "x-kubernetes-list-type": "atomic"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.GRPCAction": {
+      "additionalProperties": false,
       "properties": {
         "port": {
           "description": "Port number of the gRPC service. Number must be in the range 1 to 65535.",
@@ -796,10 +797,10 @@
       "required": [
         "port"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.HTTPGetAction": {
+      "additionalProperties": false,
       "description": "HTTPGetAction describes an action based on HTTP Get requests.",
       "properties": {
         "host": {
@@ -830,10 +831,10 @@
       "required": [
         "port"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.HTTPHeader": {
+      "additionalProperties": false,
       "description": "HTTPHeader describes a custom header to be used in HTTP probes",
       "properties": {
         "name": {
@@ -849,10 +850,10 @@
         "name",
         "value"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.HostAlias": {
+      "additionalProperties": false,
       "description": "HostAlias holds the mapping between IP and hostnames that will be injected as an entry in the pod's hosts file.",
       "properties": {
         "hostnames": {
@@ -868,10 +869,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.HostIP": {
+      "additionalProperties": false,
       "description": "HostIP represents a single IP address allocated to the host.",
       "properties": {
         "ip": {
@@ -879,10 +880,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.HostPathVolumeSource": {
+      "additionalProperties": false,
       "description": "Represents a host path mapped into a pod. Host path volumes do not support ownership management or SELinux relabeling.",
       "properties": {
         "path": {
@@ -897,10 +898,10 @@
       "required": [
         "path"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.KeyToPath": {
+      "additionalProperties": false,
       "description": "Maps a string key to a path within a volume.",
       "properties": {
         "key": {
@@ -921,10 +922,10 @@
         "key",
         "path"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Lifecycle": {
+      "additionalProperties": false,
       "description": "Lifecycle describes actions that the management system should take in response to container lifecycle events. For the PostStart and PreStop lifecycle handlers, management of the container blocks until the action is complete, unless the container process fails, in which case the handler is aborted.",
       "properties": {
         "postStart": {
@@ -936,10 +937,10 @@
           "description": "PreStop is called immediately before a container is terminated due to an API request or management event such as liveness/startup probe failure, preemption, resource contention, etc. The handler is not called if the container crashes or exits. The Pod's termination grace period countdown begins before the PreStop hook is executed. Regardless of the outcome of the handler, the container will eventually terminate within the Pod's termination grace period (unless delayed by finalizers). Other management of the container blocks until the hook completes or until the termination grace period is reached. More info: https://kubernetes.io/docs/concepts/containers/container-lifecycle-hooks/#container-hooks"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.LifecycleHandler": {
+      "additionalProperties": false,
       "description": "LifecycleHandler defines a specific action that should be taken in a lifecycle hook. One and only one of the fields, except TCPSocket must be specified.",
       "properties": {
         "exec": {
@@ -959,10 +960,10 @@
           "description": "Deprecated. TCPSocket is NOT supported as a LifecycleHandler and kept for the backward compatibility. There are no validation of this field and lifecycle hooks will fail in runtime when tcp handler is specified."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.LocalObjectReference": {
+      "additionalProperties": false,
       "description": "LocalObjectReference contains enough information to let you locate the referenced object inside the same namespace.",
       "properties": {
         "name": {
@@ -971,10 +972,10 @@
         }
       },
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.NodeAffinity": {
+      "additionalProperties": false,
       "description": "Node affinity is a group of node affinity scheduling rules.",
       "properties": {
         "preferredDuringSchedulingIgnoredDuringExecution": {
@@ -990,10 +991,10 @@
           "description": "If the affinity requirements specified by this field are not met at scheduling time, the pod will not be scheduled onto the node. If the affinity requirements specified by this field cease to be met at some point during pod execution (e.g. due to an update), the system may or may not try to eventually evict the pod from its node."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.NodeSelector": {
+      "additionalProperties": false,
       "description": "A node selector represents the union of the results of one or more label queries over a set of nodes; that is, it represents the OR of the selectors represented by the node selector terms.",
       "properties": {
         "nodeSelectorTerms": {
@@ -1009,10 +1010,10 @@
         "nodeSelectorTerms"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.NodeSelectorRequirement": {
+      "additionalProperties": false,
       "description": "A node selector requirement is a selector that contains values, a key, and an operator that relates the key and values.",
       "properties": {
         "key": {
@@ -1036,10 +1037,10 @@
         "key",
         "operator"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.NodeSelectorTerm": {
+      "additionalProperties": false,
       "description": "A null or empty node selector term matches no objects. The requirements of them are ANDed. The TopologySelectorTerm type implements a subset of the NodeSelectorTerm.",
       "properties": {
         "matchExpressions": {
@@ -1060,10 +1061,10 @@
         }
       },
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.ObjectFieldSelector": {
+      "additionalProperties": false,
       "description": "ObjectFieldSelector selects an APIVersioned field of an object.",
       "properties": {
         "apiVersion": {
@@ -1079,10 +1080,10 @@
         "fieldPath"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.PersistentVolumeClaimSpec": {
+      "additionalProperties": false,
       "description": "PersistentVolumeClaimSpec describes the common attributes of storage devices and allows a Source for provider-specific attributes",
       "properties": {
         "accessModes": {
@@ -1126,10 +1127,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PersistentVolumeClaimTemplate": {
+      "additionalProperties": false,
       "description": "PersistentVolumeClaimTemplate is used to produce PersistentVolumeClaim objects as part of an EphemeralVolumeSource.",
       "properties": {
         "metadata": {
@@ -1144,10 +1145,10 @@
       "required": [
         "spec"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PersistentVolumeClaimVolumeSource": {
+      "additionalProperties": false,
       "description": "PersistentVolumeClaimVolumeSource references the user's PVC in the same namespace. This volume finds the bound PV and mounts that volume for the pod. A PersistentVolumeClaimVolumeSource is, essentially, a wrapper around another type of volume that is owned by someone else (the system).",
       "properties": {
         "claimName": {
@@ -1162,25 +1163,25 @@
       "required": [
         "claimName"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Pod": {
+      "additionalProperties": false,
       "description": "Pod is a collection of containers that can run on a host. This resource is created by clients and scheduled onto hosts.",
       "properties": {
         "apiVersion": {
           "description": "APIVersion defines the versioned schema of this representation of an object. Servers should convert recognized schemas to the latest internal value, and may reject unrecognized values. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#resources",
-          "type": "string",
           "enum": [
             "v1"
-          ]
+          ],
+          "type": "string"
         },
         "kind": {
           "description": "Kind is a string value representing the REST resource this object represents. Servers may infer this from the endpoint the client submits requests to. Cannot be updated. In CamelCase. More info: https://git.k8s.io/community/contributors/devel/sig-architecture/api-conventions.md#types-kinds",
-          "type": "string",
           "enum": [
             "Pod"
-          ]
+          ],
+          "type": "string"
         },
         "metadata": {
           "$ref": "#/definitions/io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta",
@@ -1202,10 +1203,10 @@
           "kind": "Pod",
           "version": "v1"
         }
-      ],
-      "additionalProperties": false
+      ]
     },
     "io.k8s.api.core.v1.PodAffinity": {
+      "additionalProperties": false,
       "description": "Pod affinity is a group of inter pod affinity scheduling rules.",
       "properties": {
         "preferredDuringSchedulingIgnoredDuringExecution": {
@@ -1225,10 +1226,10 @@
           "x-kubernetes-list-type": "atomic"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodAffinityTerm": {
+      "additionalProperties": false,
       "description": "Defines a set of pods (namely those matching the labelSelector relative to the given namespace(s)) that this pod should be co-located (affinity) or not co-located (anti-affinity) with, where co-located is defined as running on a node whose value of the label with key <topologyKey> matches that of any node on which a pod of the set of pods is running",
       "properties": {
         "labelSelector": {
@@ -1271,10 +1272,10 @@
       "required": [
         "topologyKey"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodAntiAffinity": {
+      "additionalProperties": false,
       "description": "Pod anti affinity is a group of inter pod anti affinity scheduling rules.",
       "properties": {
         "preferredDuringSchedulingIgnoredDuringExecution": {
@@ -1294,10 +1295,10 @@
           "x-kubernetes-list-type": "atomic"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodCondition": {
+      "additionalProperties": false,
       "description": "PodCondition contains details for the current condition of this pod.",
       "properties": {
         "lastProbeTime": {
@@ -1329,10 +1330,10 @@
         "type",
         "status"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodDNSConfig": {
+      "additionalProperties": false,
       "description": "PodDNSConfig defines the DNS parameters of a pod in addition to those generated from DNSPolicy.",
       "properties": {
         "nameservers": {
@@ -1360,10 +1361,10 @@
           "x-kubernetes-list-type": "atomic"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodDNSConfigOption": {
+      "additionalProperties": false,
       "description": "PodDNSConfigOption defines DNS resolver options of a pod.",
       "properties": {
         "name": {
@@ -1374,10 +1375,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodIP": {
+      "additionalProperties": false,
       "description": "PodIP represents a single IP address allocated to the pod.",
       "properties": {
         "ip": {
@@ -1385,10 +1386,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodOS": {
+      "additionalProperties": false,
       "description": "PodOS defines the OS parameters of a pod.",
       "properties": {
         "name": {
@@ -1399,10 +1400,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodReadinessGate": {
+      "additionalProperties": false,
       "description": "PodReadinessGate contains the reference to a pod condition",
       "properties": {
         "conditionType": {
@@ -1413,10 +1414,10 @@
       "required": [
         "conditionType"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodResourceClaim": {
+      "additionalProperties": false,
       "description": "PodResourceClaim references exactly one ResourceClaim through a ClaimSource. It adds a name to it that uniquely identifies the ResourceClaim inside the Pod. Containers that need access to the ResourceClaim reference it with this name.",
       "properties": {
         "name": {
@@ -1431,10 +1432,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodResourceClaimStatus": {
+      "additionalProperties": false,
       "description": "PodResourceClaimStatus is stored in the PodStatus for each PodResourceClaim which references a ResourceClaimTemplate. It stores the generated name for the corresponding ResourceClaim.",
       "properties": {
         "name": {
@@ -1449,10 +1450,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodSchedulingGate": {
+      "additionalProperties": false,
       "description": "PodSchedulingGate is associated to a Pod to guard its scheduling.",
       "properties": {
         "name": {
@@ -1463,10 +1464,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodSecurityContext": {
+      "additionalProperties": false,
       "description": "PodSecurityContext holds pod-level security attributes and common container settings. Some fields are also present in container.securityContext.  Field values of container.securityContext take precedence over field values of PodSecurityContext.",
       "properties": {
         "fsGroup": {
@@ -1522,10 +1523,10 @@
           "description": "The Windows specific settings applied to all containers. If unspecified, the options within a container's SecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodSpec": {
+      "additionalProperties": false,
       "description": "PodSpec is a description of a pod.",
       "properties": {
         "activeDeadlineSeconds": {
@@ -1788,10 +1789,10 @@
       "required": [
         "containers"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PodStatus": {
+      "additionalProperties": false,
       "description": "PodStatus represents information about the status of a pod. Status may trail the actual state of a system, especially if the node that hosts the pod cannot contact the control plane.",
       "properties": {
         "conditions": {
@@ -1904,10 +1905,10 @@
           "description": "RFC 3339 date and time at which the object was acknowledged by the Kubelet. This is before the Kubelet pulled the container image(s) for the pod."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.PreferredSchedulingTerm": {
+      "additionalProperties": false,
       "description": "An empty preferred scheduling term matches all objects with implicit weight 0 (i.e. it's a no-op). A null preferred scheduling term matches no objects (i.e. is also a no-op).",
       "properties": {
         "preference": {
@@ -1924,10 +1925,10 @@
         "weight",
         "preference"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Probe": {
+      "additionalProperties": false,
       "description": "Probe describes a health check to be performed against a container to determine whether it is alive or ready to receive traffic.",
       "properties": {
         "exec": {
@@ -1977,10 +1978,10 @@
           "type": "integer"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ResourceClaim": {
+      "additionalProperties": false,
       "description": "ResourceClaim references one entry in PodSpec.ResourceClaims.",
       "properties": {
         "name": {
@@ -1991,10 +1992,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.ResourceFieldSelector": {
+      "additionalProperties": false,
       "description": "ResourceFieldSelector represents container resources (cpu, memory) and their output format",
       "properties": {
         "containerName": {
@@ -2014,10 +2015,10 @@
         "resource"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.ResourceRequirements": {
+      "additionalProperties": false,
       "description": "ResourceRequirements describes the compute resource requirements.",
       "properties": {
         "claims": {
@@ -2046,10 +2047,10 @@
           "type": "object"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.SELinuxOptions": {
+      "additionalProperties": false,
       "description": "SELinuxOptions are the labels to be applied to the container",
       "properties": {
         "level": {
@@ -2069,10 +2070,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.SeccompProfile": {
+      "additionalProperties": false,
       "description": "SeccompProfile defines a pod/container's seccomp profile settings. Only one profile source may be set.",
       "properties": {
         "localhostProfile": {
@@ -2095,10 +2096,10 @@
             "localhostProfile": "LocalhostProfile"
           }
         }
-      ],
-      "additionalProperties": false
+      ]
     },
     "io.k8s.api.core.v1.SecretEnvSource": {
+      "additionalProperties": false,
       "description": "SecretEnvSource selects a Secret to populate the environment variables with.\n\nThe contents of the target Secret's Data field will represent the key-value pairs as environment variables.",
       "properties": {
         "name": {
@@ -2110,10 +2111,10 @@
           "type": "boolean"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.SecretKeySelector": {
+      "additionalProperties": false,
       "description": "SecretKeySelector selects a key of a Secret.",
       "properties": {
         "key": {
@@ -2133,10 +2134,10 @@
         "key"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.SecretVolumeSource": {
+      "additionalProperties": false,
       "description": "Adapts a Secret into a volume.\n\nThe contents of the target Secret's Data field will be presented in a volume as files using the keys in the Data field as the file names. Secret volumes support ownership management and SELinux relabeling.",
       "properties": {
         "defaultMode": {
@@ -2161,10 +2162,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.SecurityContext": {
+      "additionalProperties": false,
       "description": "SecurityContext holds security configuration that will be applied to a container. Some fields are present in both SecurityContext and PodSecurityContext.  When both are set, the values in SecurityContext take precedence.",
       "properties": {
         "allowPrivilegeEscalation": {
@@ -2214,10 +2215,10 @@
           "description": "The Windows specific settings applied to all containers. If unspecified, the options from the PodSecurityContext will be used. If set in both SecurityContext and PodSecurityContext, the value specified in SecurityContext takes precedence. Note that this field cannot be set when spec.os.name is linux."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.SleepAction": {
+      "additionalProperties": false,
       "description": "SleepAction describes a \"sleep\" action.",
       "properties": {
         "seconds": {
@@ -2229,10 +2230,10 @@
       "required": [
         "seconds"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Sysctl": {
+      "additionalProperties": false,
       "description": "Sysctl defines a kernel parameter to be set",
       "properties": {
         "name": {
@@ -2248,10 +2249,10 @@
         "name",
         "value"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.TCPSocketAction": {
+      "additionalProperties": false,
       "description": "TCPSocketAction describes an action based on opening a socket",
       "properties": {
         "host": {
@@ -2266,10 +2267,10 @@
       "required": [
         "port"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Toleration": {
+      "additionalProperties": false,
       "description": "The pod this Toleration is attached to tolerates any taint that matches the triple <key,value,effect> using the matching operator <operator>.",
       "properties": {
         "effect": {
@@ -2294,10 +2295,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.TopologySpreadConstraint": {
+      "additionalProperties": false,
       "description": "TopologySpreadConstraint specifies how to spread matching pods among the given topology.",
       "properties": {
         "labelSelector": {
@@ -2344,10 +2345,10 @@
         "topologyKey",
         "whenUnsatisfiable"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.TypedLocalObjectReference": {
+      "additionalProperties": false,
       "description": "TypedLocalObjectReference contains enough information to let you locate the typed referenced object inside the same namespace.",
       "properties": {
         "apiGroup": {
@@ -2368,10 +2369,10 @@
         "name"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.api.core.v1.TypedObjectReference": {
+      "additionalProperties": false,
       "properties": {
         "apiGroup": {
           "description": "APIGroup is the group for the resource being referenced. If APIGroup is not specified, the specified Kind must be in the core API group. For any other third-party types, APIGroup is required.",
@@ -2394,10 +2395,10 @@
         "kind",
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.Volume": {
+      "additionalProperties": false,
       "description": "Volume represents a named volume in a pod that may be accessed by any container in the pod.",
       "properties": {
         "configMap": {
@@ -2432,10 +2433,10 @@
       "required": [
         "name"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.VolumeDevice": {
+      "additionalProperties": false,
       "description": "volumeDevice describes a mapping of a raw block device within a container.",
       "properties": {
         "devicePath": {
@@ -2451,10 +2452,10 @@
         "name",
         "devicePath"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.VolumeMount": {
+      "additionalProperties": false,
       "description": "VolumeMount describes a mounting of a Volume within a container.",
       "properties": {
         "mountPath": {
@@ -2486,10 +2487,10 @@
         "name",
         "mountPath"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.VolumeResourceRequirements": {
+      "additionalProperties": false,
       "description": "VolumeResourceRequirements describes the storage resource requirements for a volume.",
       "properties": {
         "limits": {
@@ -2507,10 +2508,10 @@
           "type": "object"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.WeightedPodAffinityTerm": {
+      "additionalProperties": false,
       "description": "The weights of all of the matched WeightedPodAffinityTerm fields are added per-node to find the most preferred node(s)",
       "properties": {
         "podAffinityTerm": {
@@ -2527,10 +2528,10 @@
         "weight",
         "podAffinityTerm"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.api.core.v1.WindowsSecurityContextOptions": {
+      "additionalProperties": false,
       "description": "WindowsSecurityContextOptions contain Windows-specific options and credentials.",
       "properties": {
         "gmsaCredentialSpec": {
@@ -2550,8 +2551,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
+    },
+    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps": {
+      "type": "object"
     },
     "io.k8s.apimachinery.pkg.api.resource.Quantity": {
       "oneOf": [
@@ -2568,6 +2571,7 @@
       "type": "object"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelector": {
+      "additionalProperties": false,
       "description": "A label selector is a label query over a set of resources. The result of matchLabels and matchExpressions are ANDed. An empty label selector matches all objects. A null label selector matches no objects.",
       "properties": {
         "matchExpressions": {
@@ -2587,10 +2591,10 @@
         }
       },
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.LabelSelectorRequirement": {
+      "additionalProperties": false,
       "description": "A label selector requirement is a selector that contains values, a key, and an operator that relates the key and values.",
       "properties": {
         "key": {
@@ -2614,10 +2618,10 @@
         "key",
         "operator"
       ],
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.ManagedFieldsEntry": {
+      "additionalProperties": false,
       "description": "ManagedFieldsEntry is a workflow-id, a FieldSet and the group version of the resource that the fieldset applies to.",
       "properties": {
         "apiVersion": {
@@ -2649,10 +2653,10 @@
           "description": "Time is the timestamp of when the ManagedFields entry was added. The timestamp will also be updated if a field is added, the manager changes any of the owned fields value or removes a field. The timestamp does not update when a field is removed from the entry because another manager took it over."
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.ObjectMeta": {
+      "additionalProperties": false,
       "description": "ObjectMeta is metadata that all persisted resources must have, which includes all objects users must create.",
       "properties": {
         "annotations": {
@@ -2742,10 +2746,10 @@
           "type": "string"
         }
       },
-      "type": "object",
-      "additionalProperties": false
+      "type": "object"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.OwnerReference": {
+      "additionalProperties": false,
       "description": "OwnerReference contains enough information to let you identify an owning object. An owning object must be in the same namespace as the dependent, or be cluster-scoped, so there is no namespace field.",
       "properties": {
         "apiVersion": {
@@ -2780,8 +2784,7 @@
         "uid"
       ],
       "type": "object",
-      "x-kubernetes-map-type": "atomic",
-      "additionalProperties": false
+      "x-kubernetes-map-type": "atomic"
     },
     "io.k8s.apimachinery.pkg.apis.meta.v1.Time": {
       "description": "Time is a wrapper around time.Time which supports correct marshaling to YAML and JSON.  Wrappers are provided for many of the factory methods that the time package offers.",
@@ -2797,9 +2800,6 @@
           "type": "integer"
         }
       ]
-    },
-    "io.k8s.apiextensions-apiserver.pkg.apis.apiextensions.v1.JSONSchemaProps": {
-      "type": "object"
     }
   }
 }
