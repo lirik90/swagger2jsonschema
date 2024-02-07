@@ -16,7 +16,7 @@ all: lint test build
 .PHONY: venv
 venv:
 	@[ -e ./.venv/                ] || $(PYTHON_SYS) -m venv ./.venv/
-	@[ -e ./.venv/bin/pip-compile ] || $(PYTHON_ENV) -m pip install 'pip-tools <= 7'
+	@[ -e ./.venv/bin/pip-compile ] || $(PYTHON_ENV) -m pip install 'pip-tools >= 7, < 8'
 
 .PHONY: format
 format: deps venv
@@ -44,10 +44,10 @@ deps: venv
 lock: ./requirements.txt ./requirements-dev.txt
 
 ./requirements.txt: ./requirements.in venv
-	@$(PYTHON_ENV) -m piptools compile --output-file $@ $<
+	@$(PYTHON_ENV) -m piptools compile --strip-extras --output-file $@ $<
 
 ./requirements-dev.txt: ./requirements-dev.in ./requirements.txt venv
-	@$(PYTHON_ENV) -m piptools compile --output-file $@ $<
+	@$(PYTHON_ENV) -m piptools compile --strip-extras --output-file $@ $<
 
 .PHONY: docker
 docker:
