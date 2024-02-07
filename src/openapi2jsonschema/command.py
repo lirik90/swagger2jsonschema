@@ -232,6 +232,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                 )
         except Exception as e:
             error("An error occured processing %s: %s" % (kind, e))
+            sys.exit(1)
 
     with open("%s/all.json" % output, "w", newline="\n") as all_file:
         info("Generating schema for all types")
