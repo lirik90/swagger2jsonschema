@@ -83,9 +83,9 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         data = yaml.load(body, Loader=yaml.SafeLoader)
 
     if "swagger" in data:
-        version = data["swagger"]
+        spec_version = data["swagger"]
     elif "openapi" in data:
-        version = data["openapi"]
+        spec_version = data["openapi"]
     else:
         raise ValueError(
             "Cannot convert data to JSON because we could not find 'openapi' or 'swagger' keys"
@@ -94,7 +94,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
     if not os.path.exists(output):
         os.makedirs(output)
 
-    if version < "3":
+    if spec_version < "3":
         with open(
             "%s/_definitions.json" % output, "w", newline="\n"
         ) as definitions_file:
@@ -154,7 +154,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
     types = []
 
     info("Generating individual schemas")
-    if version < "3":
+    if spec_version < "3":
         components = data["definitions"]
     else:
         components = data["components"]["schemas"]
@@ -162,12 +162,13 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
     for title in components:
         kind = title.split(".")[-1].lower()
         if kubernetes:
-            try:
+            # If it is a Kubernetes object, use a simplified group name
+            if title.startswith("io.k8s"):
                 group = title.split(".")[-3].lower()
-                api_version = title.split(".")[-2].lower()
-            except IndexError:
-                error("Unable to determine group and apiVersion from %s" % title)
-                continue
+            # Otherwise, use the fully qualified name as the group name
+            else:
+                group = ".".join(title.split(".")[:-2][::-1]).lower()
+            version = title.split(".")[-2].lower()
 
         specification = components[title]
         specification["$schema"] = json_validator.META_SCHEMA["$schema"]
@@ -178,9 +179,9 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
 
         if kubernetes and expanded:
             if group in ["core", "api"]:
-                full_name = "%s-%s" % (kind, api_version)
+                full_name = "%s-%s" % (kind, version)
             else:
-                full_name = "%s-%s-%s" % (kind, group, api_version)
+                full_name = "%s-%s-%s" % (kind, group, version)
         else:
             full_name = kind
 
@@ -197,7 +198,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
                         % title
                     )
 
-            updated = change_dict_values(specification, prefix, version)
+            updated = change_dict_values(specification, prefix, spec_version)
             specification = updated
 
             if stand_alone:
@@ -207,7 +208,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             if "additionalProperties" in specification:
                 if specification["additionalProperties"]:
                     updated = change_dict_values(
-                        specification["additionalProperties"], prefix, version
+                        specification["additionalProperties"], prefix, spec_version
                     )
                     specification["additionalProperties"] = updated
 
@@ -238,7 +239,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         info("Generating schema for all types")
         contents = {"oneOf": []}
         for title in types:
-            if version < "3":
+            if spec_version < "3":
                 contents["oneOf"].append(
                     {"$ref": "%s#/definitions/%s" % (prefix, title)}
                 )
