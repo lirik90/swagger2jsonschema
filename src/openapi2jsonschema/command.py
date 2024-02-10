@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 
+import copy
 import json
 import os
 import sys
@@ -102,7 +103,7 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
             definitions = data["definitions"]
             if kubernetes:
                 # Add Kubernetes specific definitions
-                definitions.update(kubernetes_definitions)
+                definitions.update(copy.deepcopy(kubernetes_definitions))
                 for type_name in definitions:
                     type_def = definitions[type_name]
                     # Skip non-object types
