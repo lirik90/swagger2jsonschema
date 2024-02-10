@@ -68,13 +68,10 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
     Converts a valid OpenAPI specification into a set of JSON Schema files
     """
     info("Downloading schema")
-    if sys.version_info < (3, 0):
-        response = urllib.urlopen(schema)
-    else:
-        if os.path.isfile(schema):
-            schema = "file:///" + os.path.realpath(schema)
-        req = urllib.request.Request(schema)
-        response = urllib.request.urlopen(req)
+    if os.path.isfile(schema):
+        schema = "file:///" + os.path.realpath(schema)
+    req = urllib.request.Request(schema)
+    response = urllib.request.urlopen(req)
 
     info("Parsing schema")
     body = response.read()
