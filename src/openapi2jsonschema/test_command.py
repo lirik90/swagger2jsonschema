@@ -22,7 +22,7 @@ def test_help():
     os.path.join(FIXTURE_DIR, "oasv3", "petstore.yaml"),
     os.path.join(FIXTURE_DIR, "oasv3", "petstore.json"),
 )
-def test_command_oasv3(datafiles):
+def test_cmd_oasv3(datafiles):
     runner = CliRunner()
     for spec in os.listdir(datafiles):
         output_dir = os.path.join(datafiles, "schemas")
@@ -57,7 +57,7 @@ def test_command_oasv3(datafiles):
 @pytest.mark.datafiles(
     os.path.join(FIXTURE_DIR, "kubernetes", "swagger.json"),
 )
-def test_command_kubernetes(datafiles):
+def test_cmd_k8s_local(datafiles):
     runner = CliRunner()
     for spec in os.listdir(datafiles):
         output_dir = os.path.join(datafiles, "schemas")
@@ -67,23 +67,134 @@ def test_command_kubernetes(datafiles):
             [
                 "--output",
                 output_dir,
-                "--stand-alone",
-                "--expanded",
                 "--kubernetes",
+                "--expanded",
+                schema_url,
+            ],
+        )
+        assert result.exit_code == 0
+        for schema in [
+            "_definitions.json",
+            "all.json",
+            "pod-v1.json",
+            "daemonset-apps-v1.json",
+            "helmchart-helm.cattle.io-v1.json",
+            "middleware-traefik.io-v1alpha1.json",
+            "middleware-traefik.containo.us-v1alpha1.json",
+        ]:
+            assert filecmp.cmp(
+                os.path.join(FIXTURE_DIR, "kubernetes", "schemas", "local", schema),
+                os.path.join(output_dir, schema),
+            )
+
+
+@pytest.mark.datafiles(
+    os.path.join(FIXTURE_DIR, "kubernetes", "swagger.json"),
+)
+def test_cmd_k8s_local_strict(datafiles):
+    runner = CliRunner()
+    for spec in os.listdir(datafiles):
+        output_dir = os.path.join(datafiles, "schemas")
+        schema_url = os.path.join(datafiles, spec)
+        result = runner.invoke(
+            default,
+            [
+                "--output",
+                output_dir,
+                "--kubernetes",
+                "--expanded",
                 "--strict",
                 schema_url,
             ],
         )
         assert result.exit_code == 0
-        assert filecmp.cmp(
-            os.path.join(FIXTURE_DIR, "kubernetes", "schemas", "_definitions.json"),
-            os.path.join(output_dir, "_definitions.json"),
+        for schema in [
+            "_definitions.json",
+            "all.json",
+            "pod-v1.json",
+            "daemonset-apps-v1.json",
+            "helmchart-helm.cattle.io-v1.json",
+            "middleware-traefik.io-v1alpha1.json",
+            "middleware-traefik.containo.us-v1alpha1.json",
+        ]:
+            assert filecmp.cmp(
+                os.path.join(
+                    FIXTURE_DIR, "kubernetes", "schemas", "local-strict", schema
+                ),
+                os.path.join(output_dir, schema),
+            )
+
+
+@pytest.mark.datafiles(
+    os.path.join(FIXTURE_DIR, "kubernetes", "swagger.json"),
+)
+def test_cmd_k8s_standalone(datafiles):
+    runner = CliRunner()
+    for spec in os.listdir(datafiles):
+        output_dir = os.path.join(datafiles, "schemas")
+        schema_url = os.path.join(datafiles, spec)
+        result = runner.invoke(
+            default,
+            [
+                "--output",
+                output_dir,
+                "--kubernetes",
+                "--expanded",
+                "--stand-alone",
+                schema_url,
+            ],
         )
-        assert filecmp.cmp(
-            os.path.join(FIXTURE_DIR, "kubernetes", "schemas", "all.json"),
-            os.path.join(output_dir, "all.json"),
+        assert result.exit_code == 0
+        for schema in [
+            "_definitions.json",
+            "all.json",
+            "pod-v1.json",
+            "daemonset-apps-v1.json",
+            "helmchart-helm.cattle.io-v1.json",
+            "middleware-traefik.io-v1alpha1.json",
+            "middleware-traefik.containo.us-v1alpha1.json",
+        ]:
+            assert filecmp.cmp(
+                os.path.join(
+                    FIXTURE_DIR, "kubernetes", "schemas", "standalone", schema
+                ),
+                os.path.join(output_dir, schema),
+            )
+
+
+@pytest.mark.datafiles(
+    os.path.join(FIXTURE_DIR, "kubernetes", "swagger.json"),
+)
+def test_cmd_k8s_standalone_strict(datafiles):
+    runner = CliRunner()
+    for spec in os.listdir(datafiles):
+        output_dir = os.path.join(datafiles, "schemas")
+        schema_url = os.path.join(datafiles, spec)
+        result = runner.invoke(
+            default,
+            [
+                "--output",
+                output_dir,
+                "--kubernetes",
+                "--expanded",
+                "--stand-alone",
+                "--strict",
+                schema_url,
+            ],
         )
-        assert filecmp.cmp(
-            os.path.join(FIXTURE_DIR, "kubernetes", "schemas", "pod-v1.json"),
-            os.path.join(output_dir, "pod-v1.json"),
-        )
+        assert result.exit_code == 0
+        for schema in [
+            "_definitions.json",
+            "all.json",
+            "pod-v1.json",
+            "daemonset-apps-v1.json",
+            "helmchart-helm.cattle.io-v1.json",
+            "middleware-traefik.io-v1alpha1.json",
+            "middleware-traefik.containo.us-v1alpha1.json",
+        ]:
+            assert filecmp.cmp(
+                os.path.join(
+                    FIXTURE_DIR, "kubernetes", "schemas", "standalone-strict", schema
+                ),
+                os.path.join(output_dir, schema),
+            )
