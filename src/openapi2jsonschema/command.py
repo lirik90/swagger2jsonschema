@@ -20,6 +20,7 @@ from .util import (
     append_no_duplicates,
     change_dict_values,
     replace_int_or_string,
+    get_request_and_response_body_components_from_paths,
 )
 
 
@@ -51,8 +52,13 @@ from .util import (
     is_flag=True,
     help="Prohibits properties not in the schema (additionalProperties: false)",
 )
+@click.option(
+    "--include-bodies",
+    is_flag=True,
+    help="Include request and response bodies as if they are components",
+)
 @click.argument("schema", metavar="SCHEMA_URL")
-def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
+def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict, include_bodies):
     json_encoder = json.JSONEncoder(
         skipkeys=False,
         ensure_ascii=True,
@@ -156,6 +162,11 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict):
         components = data["definitions"]
     else:
         components = data["components"]["schemas"]
+
+    if include_bodies:
+        components.update(
+            get_request_and_response_body_components_from_paths(data["paths"]),
+        )
 
     for title in components:
         kind = title.split(".")[-1].lower()
