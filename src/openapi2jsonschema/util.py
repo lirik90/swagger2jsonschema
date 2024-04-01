@@ -151,17 +151,21 @@ def get_request_and_response_body_components_from_paths(paths):
                 name_prefix_fmt,
             )
             if "requestBody" in http_method_definition:
-                components.update(get_components_from_body_definition(
-                    http_method_definition["requestBody"],
-                    prefix=name_prefix_fmt.format("request")
-                ))
+                components.update(
+                    get_components_from_body_definition(
+                        http_method_definition["requestBody"],
+                        prefix=name_prefix_fmt.format("request"),
+                    )
+                )
             responses = http_method_definition["responses"]
             for response_code, response in responses.items():
                 response_name_part = "response_{}".format(response_code)
-                components.update(get_components_from_body_definition(
-                    response,
-                    prefix=name_prefix_fmt.format(response_name_part),
-                ))
+                components.update(
+                    get_components_from_body_definition(
+                        response,
+                        prefix=name_prefix_fmt.format(response_name_part),
+                    )
+                )
     return components
 
 

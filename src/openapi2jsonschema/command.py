@@ -65,7 +65,17 @@ from .util import (
     help="Include request and response bodies as if they are components",
 )
 @click.argument("schema", metavar="SCHEMA_URL")
-def default(output, schema, prefix, header, stand_alone, expanded, kubernetes, strict, include_bodies):
+def default(
+    output,
+    schema,
+    prefix,
+    header,
+    stand_alone,
+    expanded,
+    kubernetes,
+    strict,
+    include_bodies,
+):
     json_encoder = json.JSONEncoder(
         skipkeys=False,
         ensure_ascii=True,
