@@ -21,6 +21,7 @@ from .util import (
     change_dict_values,
     replace_int_or_string,
     get_request_and_response_body_components_from_paths,
+    parse_headers,
 )
 
 
@@ -37,6 +38,12 @@ from .util import (
     "--prefix",
     default="_definitions.json",
     help="Prefix for JSON references (only for OpenAPI versions before 3.0)",
+)
+@click.option(
+    "-H",
+    "--header",
+    multiple=True,
+    help="Extra header to use when getting a schema. May be specified multiple times.",
 )
 @click.option(
     "--stand-alone", is_flag=True, help="Whether or not to de-reference JSON schemas"
@@ -58,7 +65,7 @@ from .util import (
     help="Include request and response bodies as if they are components",
 )
 @click.argument("schema", metavar="SCHEMA_URL")
-def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict, include_bodies):
+def default(output, schema, prefix, header, stand_alone, expanded, kubernetes, strict, include_bodies):
     json_encoder = json.JSONEncoder(
         skipkeys=False,
         ensure_ascii=True,
@@ -76,7 +83,11 @@ def default(output, schema, prefix, stand_alone, expanded, kubernetes, strict, i
     info("Downloading schema")
     if os.path.isfile(schema):
         schema = "file:///" + os.path.realpath(schema)
-    req = urllib.request.Request(schema)
+    if header:
+        headers = parse_headers(header)
+        req = urllib.request.Request(schema, headers=headers)
+    else:
+        req = urllib.request.Request(schema)
     response = urllib.request.urlopen(req)
 
     info("Parsing schema")

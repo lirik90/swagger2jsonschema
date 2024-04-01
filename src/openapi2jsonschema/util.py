@@ -163,3 +163,18 @@ def get_request_and_response_body_components_from_paths(paths):
                     prefix=name_prefix_fmt.format(response_name_part),
                 ))
     return components
+
+
+def parse_headers(header):
+    """
+    Argument is a tuple of header strings.
+    e.g. ('Content-Type: application/json', 'Accept: application/text')
+    Invalid headers are ignored.
+    The function returns a dictionary of the headers.
+    """
+    res = {}
+    for h in header:
+        h = h.split(":", 1)
+        if len(h) == 2:
+            res[h[0].strip()] = h[1].strip()
+    return res
