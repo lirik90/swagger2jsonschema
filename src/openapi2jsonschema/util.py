@@ -180,8 +180,10 @@ def get_request_parameters_from_paths(paths):
                 for param_value in http_method_definition["parameters"]:
                     components[http_method_definition["operationId"]]["properties"][param_value["name"]] = {}
                     components[http_method_definition["operationId"]]["properties"][param_value["name"]]["in"] = param_value["in"]
-                    components[http_method_definition["operationId"]]["properties"][param_value["name"]]["type"] = param_value["schema"]["type"]
-                    components[http_method_definition["operationId"]]["properties"][param_value["name"]]["format"] = param_value["schema"]["format"]
+
+                    for key in param_value["schema"]:
+                        components[http_method_definition["operationId"]]["properties"][param_value["name"]][key] = param_value["schema"][key]
+
                     if param_value["required"]:
                         required.append(param_value["name"])
                 if required:
