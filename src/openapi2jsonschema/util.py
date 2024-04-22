@@ -169,6 +169,34 @@ def get_request_and_response_body_components_from_paths(paths):
     return components
 
 
+def get_request_parameters_from_paths(paths):
+    components = {}
+    for path, path_definition in paths.items():
+        for http_method, http_method_definition in path_definition.items():
+            if "parameters" in http_method_definition:
+                components[http_method_definition["operationId"]] = {}
+                components[http_method_definition["operationId"]]["properties"] = {}
+                required = []
+                for param_value in http_method_definition["parameters"]:
+                    components[http_method_definition["operationId"]]["properties"][param_value["name"]] = {}
+                    components[http_method_definition["operationId"]]["properties"][param_value["name"]]["in"] = param_value["in"]
+                    components[http_method_definition["operationId"]]["properties"][param_value["name"]]["type"] = param_value["schema"]["type"]
+                    components[http_method_definition["operationId"]]["properties"][param_value["name"]]["format"] = param_value["schema"]["format"]
+                    if param_value["required"]:
+                        required.append(param_value["name"])
+                if required:
+                    components[http_method_definition["operationId"]]["required"] = required
+            if "requestBody" in http_method_definition:
+                if http_method_definition["operationId"] not in components:
+                    components[http_method_definition["operationId"]] = {}
+
+                tmp = http_method_definition["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+                tmp = tmp.replace("#/components/schemas/", "") + ".json"
+                components[http_method_definition["operationId"]]["requestBody"] = tmp
+
+    return components
+
+
 def parse_headers(header):
     """
     Argument is a tuple of header strings.
