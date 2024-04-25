@@ -10,18 +10,33 @@ paths:
   /project/project/list:
     get:
       summary: List all projects
-      operationId: listProjects
+      operationId: handler-project-list-get
       tags:
         - main
       parameters:
         - name: limit
           in: query
-          description: How many items to return at one time (max 100)
-          required: false
+          description: How many items to return at one time (max 1000)
+          required: true
           schema:
             type: integer
-            maximum: 100
+            maximum: 1000
             format: int32
+        - name: start
+          in: query
+          description: Offset position
+          required: true
+          schema:
+            type: integer
+            maximum: 999
+            format: int32
+        - name: X-User
+          in: header
+          description: Authorized user
+          required: true
+          schema:
+            type: string
+            format: uuid
       responses:
         '200':
           description: A paged array of projects
@@ -38,13 +53,26 @@ paths:
   /project/project:
     get:
       summary: Get one project
-      operationId: getProject
+      operationId: handler-project-get
       tags:
         - main
       parameters:
         - name: id
           in: query
-          description: Project identifer
+          description: Project identifier
+          required: false
+          schema:
+            type: string
+            format: uuid
+        - name: key
+          in: query
+          description: Project key
+          required: false
+          schema:
+            type: string
+        - name: X-User
+          in: header
+          description: Authorized user
           required: true
           schema:
             type: string
@@ -64,9 +92,17 @@ paths:
                 $ref: "#/components/schemas/Error"
     post:
       summary: Create a project
-      operationId: createProject
+      operationId: handler-project-post
       tags:
         - main
+      parameters:
+        - name: X-User
+          in: header
+          description: Authorized user
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           application/json:
@@ -82,10 +118,71 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/Error"
+    patch:
+      summary: Update a project
+      operationId: handler-project-patch
+      tags:
+        - main
+      parameters:
+        - name: X-User
+          in: header
+          description: Authorized user
+          required: true
+          schema:
+            type: string
+            format: uuid
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Project'
+        required: true
+      responses:
+        '200':
+          description: Null response
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    delete:
+      summary: Delete project
+      operationId: handler-project-delete
+      tags:
+        - main
+      parameters:
+        - name: id
+          in: query
+          description: Project identifier
+          required: true
+          schema:
+            type: string
+            format: uuid
+        - name: X-User
+          in: header
+          description: Authorized user
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: A project object
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Project"
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
   /space/invitation:
     put:
       summary: Change role in invitation
-      operationId: changeInvitationRole
+      operationId: handler-space-invitation-put
       tags:
         - main
       parameters:
@@ -103,6 +200,13 @@ paths:
           schema:
             format: date
             type: string
+        - name: X-User
+          in: header
+          description: Authorized user
+          required: true
+          schema:
+            type: string
+            format: uuid
       requestBody:
         content:
           application/json:
@@ -120,7 +224,7 @@ paths:
                 $ref: "#/components/schemas/Error"
     delete:
       summary: Delete invitation
-      operationId: deleteInvitation
+      operationId: handler-space-invitation-delete
       tags:
         - main
       parameters:
@@ -168,8 +272,8 @@ components:
         sync:
           type: string
           enum:
-            - project_to_node
-            - node_to_project
+            - projectToNode
+            - nodeToProject
     Projects:
       type: array
       maxItems: 100
