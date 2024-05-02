@@ -3,7 +3,7 @@
 SHELL := /bin/sh
 .SHELLFLAGS := -euc
 
-PYTHON_SYS ?= /usr/bin/python3.10
+PYTHON_SYS ?= python
 PYTHON_ENV ?= ./.venv/bin/python
 ifeq ($(OS),Windows_NT)
 	PYTHON_ENV = ./.venv/Scripts/python
