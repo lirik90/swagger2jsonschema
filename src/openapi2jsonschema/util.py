@@ -179,8 +179,10 @@ def get_request_parameters_from_paths(paths):
                 components[operation_id]["properties"] = {}
                 required = []
                 for param_value in http_method_definition["parameters"]:
-                    components[operation_id]["properties"][param_value["name"]] = {}
-                    components[operation_id]["properties"][param_value["name"]]["in"] = param_value["in"]
+                    name = param_value["name"]
+                    components[operation_id]["properties"][name] = {
+                        'in': param_value["in"]
+                    }
 
                     for key in param_value["schema"]:
                         components[operation_id]["properties"][param_value["name"]][key] = param_value["schema"][key]
