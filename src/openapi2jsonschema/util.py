@@ -173,35 +173,31 @@ def get_request_parameters_from_paths(paths):
     components = {}
     for _, path_definition in paths.items():
         for _, http_method_definition in path_definition.items():
+            compontent = {}
+
             if "parameters" in http_method_definition:
-                operation_id = http_method_definition["operationId"]
-                components[operation_id] = {}
-                components[operation_id]["properties"] = {}
+                component["properties"] = {}
                 required = []
                 for param_value in http_method_definition["parameters"]:
                     name = param_value["name"]
-                    components[operation_id]["properties"][name] = {
-                        "in": param_value["in"]
-                    }
+                    component["properties"][name] = {"in": param_value["in"]}
 
                     for key in param_value["schema"]:
-                        components[operation_id]["properties"][name][key] = param_value[
-                            "schema"
-                        ][key]
+                        component["properties"][name][key] = param_value["schema"][key]
 
                     if param_value["required"]:
                         required.append(name)
                 if required:
-                    components[operation_id]["required"] = required
+                    component["required"] = required
             if "requestBody" in http_method_definition:
-                if operation_id not in components:
-                    components[operation_id] = {}
-
                 tmp = http_method_definition["requestBody"]["content"][
                     "application/json"
                 ]["schema"]["$ref"]
                 tmp = tmp.replace("#/components/schemas/", "") + ".json"
-                components[operation_id]["requestBody"] = tmp
+                component["requestBody"] = tmp
+
+            operation_id = http_method_definition["operationId"]
+            components[operation_id] = compontent
 
     return components
 

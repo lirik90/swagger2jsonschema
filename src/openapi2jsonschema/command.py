@@ -19,10 +19,10 @@ from .util import (
     allow_null_optional_fields,
     append_no_duplicates,
     change_dict_values,
-    replace_int_or_string,
     get_request_and_response_body_components_from_paths,
     get_request_parameters_from_paths,
     parse_headers,
+    replace_int_or_string,
 )
 
 
