@@ -173,7 +173,7 @@ def get_request_parameters_from_paths(paths):
     components = {}
     for _, path_definition in paths.items():
         for _, http_method_definition in path_definition.items():
-            compontent = {}
+            component = {}
 
             if "parameters" in http_method_definition:
                 component["properties"] = {}
@@ -197,7 +197,7 @@ def get_request_parameters_from_paths(paths):
                 component["requestBody"] = tmp
 
             operation_id = http_method_definition["operationId"]
-            components[operation_id] = compontent
+            components[operation_id] = component
 
     return components
 
