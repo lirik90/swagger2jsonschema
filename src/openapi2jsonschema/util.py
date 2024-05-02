@@ -181,11 +181,13 @@ def get_request_parameters_from_paths(paths):
                 for param_value in http_method_definition["parameters"]:
                     name = param_value["name"]
                     components[operation_id]["properties"][name] = {
-                        'in': param_value["in"]
+                        "in": param_value["in"]
                     }
 
                     for key in param_value["schema"]:
-                        components[operation_id]["properties"][name][key] = param_value["schema"][key]
+                        components[operation_id]["properties"][name][key] = param_value[
+                            "schema"
+                        ][key]
 
                     if param_value["required"]:
                         required.append(name)
@@ -195,7 +197,9 @@ def get_request_parameters_from_paths(paths):
                 if operation_id not in components:
                     components[operation_id] = {}
 
-                tmp = http_method_definition["requestBody"]["content"]["application/json"]["schema"]["$ref"]
+                tmp = http_method_definition["requestBody"]["content"][
+                    "application/json"
+                ]["schema"]["$ref"]
                 tmp = tmp.replace("#/components/schemas/", "") + ".json"
                 components[operation_id]["requestBody"] = tmp
 

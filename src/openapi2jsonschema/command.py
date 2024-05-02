@@ -198,9 +198,7 @@ def default(
 
     if include_parameters:
         debug("Processing request parameters")
-        components.update(
-            get_request_parameters_from_paths(data["paths"])
-		)
+        components.update(get_request_parameters_from_paths(data["paths"]))
 
     for title in components:
         kind = title.split(".")[-1].lower()
