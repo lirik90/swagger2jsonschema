@@ -174,7 +174,6 @@ def get_request_parameters_from_paths(paths):
     for _, path_definition in paths.items():
         for _, http_method_definition in path_definition.items():
             component = {}
-
             if "parameters" in http_method_definition:
                 component["properties"] = {}
                 required = []
