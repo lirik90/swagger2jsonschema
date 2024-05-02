@@ -188,7 +188,7 @@ def get_request_parameters_from_paths(paths):
                         components[operation_id]["properties"][name][key] = param_value["schema"][key]
 
                     if param_value["required"]:
-                        required.append(param_value["name"])
+                        required.append(name)
                 if required:
                     components[operation_id]["required"] = required
             if "requestBody" in http_method_definition:
