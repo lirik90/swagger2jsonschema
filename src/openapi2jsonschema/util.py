@@ -185,7 +185,7 @@ def get_request_parameters_from_paths(paths):
                     }
 
                     for key in param_value["schema"]:
-                        components[operation_id]["properties"][param_value["name"]][key] = param_value["schema"][key]
+                        components[operation_id]["properties"][name][key] = param_value["schema"][key]
 
                     if param_value["required"]:
                         required.append(param_value["name"])
