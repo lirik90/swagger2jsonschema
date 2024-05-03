@@ -1,4 +1,4 @@
-# openapi2jsonschema
+# swagger2jsonschema
 
 A utility to extract [JSON Schema](http://json-schema.org/) from a
 valid [OpenAPI](https://www.openapis.org/) specification.
@@ -14,19 +14,19 @@ can be easily maintained, because the canonical definition is shared.
 
 ## Usage
 
-The simplest usage is to point the `openapi2jsonschema` tool at a URL
+The simplest usage is to point the `swagger2jsonschema` tool at a URL
 containing a JSON (or YAML) OpenAPI definition like so:
 
 ```
-openapi2jsonschema https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json
+swagger2jsonschema https://raw.githubusercontent.com/kubernetes/kubernetes/master/api/openapi-spec/swagger.json
 ```
 
 This will generate a set of schemas in a `schemas` directory. The tool
 provides a number of options to modify the output:
 
 ```
-$ openapi2jsonschema --help
-Usage: openapi2jsonschema [OPTIONS] SCHEMA
+$ swagger2jsonschema --help
+Usage: swagger2jsonschema [OPTIONS] SCHEMA
 
   Converts a valid OpenAPI specification into a set of JSON Schema files
 

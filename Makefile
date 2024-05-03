@@ -51,7 +51,7 @@ lock: ./requirements.txt ./requirements-dev.txt
 
 .PHONY: docker
 docker:
-	@$(DOCKER) image build --tag localhost/openapi2jsonschema:latest ./
+	@$(DOCKER) image build --tag localhost/swagger2jsonschema:latest ./
 
 .PHONY: clean
 clean:
