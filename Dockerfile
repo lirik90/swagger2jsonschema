@@ -42,5 +42,5 @@ RUN --mount=type=bind,from=build,src=/work/dist/,dst=/work/dist/ \
 
 USER ${UID}:0
 
-ENTRYPOINT ["/usr/local/bin/openapi2jsonschema"]
+ENTRYPOINT ["/usr/local/bin/swagger2jsonschema"]
 CMD ["--help"]
