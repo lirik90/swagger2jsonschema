@@ -19,9 +19,10 @@ from .util import (
     allow_null_optional_fields,
     append_no_duplicates,
     change_dict_values,
-    replace_int_or_string,
     get_request_and_response_body_components_from_paths,
+    get_request_parameters_from_paths,
     parse_headers,
+    replace_int_or_string,
 )
 
 
@@ -64,6 +65,11 @@ from .util import (
     is_flag=True,
     help="Include request and response bodies as if they are components",
 )
+@click.option(
+    "--include-parameters",
+    is_flag=True,
+    help="Include request parameters",
+)
 @click.argument("schema", metavar="SCHEMA_URL")
 def default(
     output,
@@ -75,6 +81,7 @@ def default(
     kubernetes,
     strict,
     include_bodies,
+    include_parameters,
 ):
     json_encoder = json.JSONEncoder(
         skipkeys=False,
@@ -178,16 +185,22 @@ def default(
 
     types = []
 
+    components = {}
     info("Generating individual schemas")
     if spec_version < "3":
         components = data["definitions"]
     else:
-        components = data["components"]["schemas"]
+        if "components" in data:
+            components = data["components"]["schemas"]
 
     if include_bodies:
         components.update(
             get_request_and_response_body_components_from_paths(data["paths"]),
         )
+
+    if include_parameters:
+        debug("Processing request parameters")
+        components.update(get_request_parameters_from_paths(data["paths"]))
 
     for title in components:
         kind = title.split(".")[-1].lower()
