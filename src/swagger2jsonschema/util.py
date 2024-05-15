@@ -140,7 +140,7 @@ def get_body_file_prefix(path, http_method):
         # Paths "/" and "/root" will conflict,
         # no idea how to solve this elegantly.
         path.lstrip("/").replace("/", "_") or "root",
-        http_method.upper(),
+        http_method,
     )
     return re.sub(
         r"\{([^:\}]+)\}",
@@ -198,7 +198,7 @@ def get_request_parameters_from_paths(paths):
                 if "$ref" in schema:
                     tmp = schema["$ref"]
                     tmp = tmp.replace("#/components/schemas/", "") + ".json"
-                    component["requestBody"] = tmp
+                    component["requestBody"] = tmp.lower()
                 else:
                     prefix_fmt = get_body_file_prefix(path, http_method)
                     prefix = prefix_fmt.format("request")
