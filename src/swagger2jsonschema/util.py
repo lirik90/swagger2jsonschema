@@ -173,7 +173,7 @@ def get_request_and_response_body_components_from_paths(paths):
     return components
 
 
-def get_request_parameters_from_paths(paths):
+def get_request_parameters_from_paths(paths, parameters):
     components = {}
     for path, path_definition in paths.items():
         for http_method, http_method_definition in path_definition.items():
@@ -182,14 +182,27 @@ def get_request_parameters_from_paths(paths):
                 component["properties"] = {}
                 required = []
                 for param_value in http_method_definition["parameters"]:
-                    name = param_value["name"]
-                    component["properties"][name] = {"in": param_value["in"]}
+                    if "$ref" in param_value:
+                        tmp = param_value["$ref"]
+                        tmp = tmp.replace("#/components/parameters/", "")
+                        external_param = parameters[tmp]
+                        name = external_param["name"]
+                        component["properties"][name] = {"in": external_param["in"]}
 
-                    for key in param_value["schema"]:
-                        component["properties"][name][key] = param_value["schema"][key]
+                        for key in external_param["schema"]:
+                            component["properties"][name][key] = external_param["schema"][key]
 
-                    if param_value["required"]:
-                        required.append(name)
+                        if external_param["required"]:
+                            required.append(name)
+                    else:
+                        name = param_value["name"]
+                        component["properties"][name] = {"in": param_value["in"]}
+
+                        for key in param_value["schema"]:
+                            component["properties"][name][key] = param_value["schema"][key]
+
+                        if param_value["required"]:
+                            required.append(name)
                 if required:
                     component["required"] = required
             if "requestBody" in http_method_definition:
