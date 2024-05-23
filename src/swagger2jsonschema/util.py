@@ -188,8 +188,10 @@ def get_request_parameters_from_paths(paths, parameters):
                         external_param = parameters[tmp]
                         name = external_param["name"]
                         component["properties"][name] = {"in": external_param["in"]}
+
                         for key in external_param["schema"]:
                             component["properties"][name][key] = external_param["schema"][key]
+
                         if external_param["required"]:
                             required.append(name)
                     else:
